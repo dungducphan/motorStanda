@@ -1,0 +1,6 @@
+# Standa driver support.
+
+# Model 3 driver
+registrar(StandaRegister)
+
+
