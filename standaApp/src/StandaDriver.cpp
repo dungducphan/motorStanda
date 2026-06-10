@@ -9,6 +9,7 @@ USAGE...    Motor driver support for the Standa 8SMC5 controller.
 #include <epicsExport.h>
 
 #include "StandaDriver.h"
+#include <cstring>
 #include <ximc.h>
 
 #define NINT(f) (int)((f)>0 ? (f)+0.5 : (f)-0.5)
@@ -290,6 +291,7 @@ asynStatus StandaAxis::poll(bool *moving)
     result_t result;
     int done = 0;
     int limit = 0;
+    bool isMoving = false;
 
     // get the Device state
     result = get_status( device_, &status_ );
@@ -307,7 +309,7 @@ asynStatus StandaAxis::poll(bool *moving)
     // get the position
     //printf( "position %d, encoder %lld, speed %d, bitmask %i\n", status_.CurPosition, status_.EncPosition, status_.CurSpeed, status_.MvCmdSts);
     setDoubleParam(pC_->motorPosition_, status_.CurPosition);
-    bool isMoving = (status_.MvCmdSts & MVCMD_RUNNING) != 0;
+    isMoving = (status_.MvCmdSts & MVCMD_RUNNING) != 0;
     done = isMoving ? 0 : 1;
 
 
