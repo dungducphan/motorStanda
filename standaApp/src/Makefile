@@ -12,6 +12,7 @@ LIBRARY_IOC = Standa
 # Motion Controller 8SMC5 from Standa
 SRCS += StandaDriver.cpp
 
+Standa_SYS_LIBS += ximc
 Standa_LIBS += motor asyn
 Standa_LIBS += $(EPICS_BASE_IOC_LIBS)
 
